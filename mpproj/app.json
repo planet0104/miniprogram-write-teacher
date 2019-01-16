@@ -1,0 +1,20 @@
+{
+  "pages": [
+    "pages/index/index"
+  ],
+  "cloud": "true",
+  "subpackages": [
+    {
+      "root": "teacher",
+      "pages": [
+        "pages/index/index"
+      ]
+    }
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#1e756d",
+    "navigationBarTitleText": "识字画板",
+    "navigationBarTextStyle": "white"
+  }
+}

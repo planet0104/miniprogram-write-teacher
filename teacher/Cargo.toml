@@ -1,0 +1,19 @@
+[package]
+name = "teacher"
+version = "0.1.0"
+authors = ["planet0104 <planet0104@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+bincode = "1.0.1"
+stdweb = "0.4.13"
+serde_derive = "*"
+serde = "*"
+bzip2 = "*"
+base64 = "0.10.0"
+chrono = { version = "0.4", default-features = false }
+
+[profile.release]
+lto = true #必须加，否则asm.js编译不过
+opt-level = 's'
+panic = 'abort'

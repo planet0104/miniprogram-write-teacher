@@ -1,0 +1,14 @@
+/**index.wxss**/
+page{
+  background: #1e756d;
+}
+
+.container{
+  display: flex;
+  justify-content: center;
+  padding-top: 460rpx;
+}
+
+.container text{
+  color: white;
+}

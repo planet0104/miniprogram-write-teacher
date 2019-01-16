@@ -1,0 +1,4 @@
+<!--index.wxml-->
+<view class="container">
+    <text>正在启动...</text>
+</view>

@@ -1,0 +1,131 @@
+<!--teacher/pages/index.wxml-->
+
+<!-- 浮动：分享小程序/二维码 -->
+<view class='shaer-app' wx:if="{{showShare}}">
+  <image src='/static/code.jpg'></image>
+  <view class='share-tip'>扫一扫小程序码</view>
+  <view style='display:flex'>
+    <button open-type="share">转发给朋友</button>
+    <button bindtap='hideShare'>关闭</button>
+  </view>
+</view>
+
+<!-- 浮动:选择练习内容 -->
+<view class='choose-dialog' wx:if="{{showChoose}}">
+  <text>选择练习内容</text>
+  <view class='search'><image src='/static/icons/search.png'></image><input bindinput='searchTitle' placeholder='搜索'></input></view>
+  <picker-view value="{{exerciseValue}}" bindchange="bindChooseChange">
+    <picker-view-column>
+      <view wx:key="years" wx:for="{{exerciseGroups}}" style="line-height: 50px">{{item}}</view>
+    </picker-view-column>
+    <picker-view-column>
+      <view wx:key="months" wx:for="{{exerciseNames}}" style="line-height: 50px">{{item}}</view>
+    </picker-view-column>
+  </picker-view>
+  <button class='btn-cancel' bindtap='hideChoose'>取消</button>
+  <button bindtap='hideChooseAndSet'>选好了</button>
+</view>
+
+<!-- 浮动:历史记录笔画预览对话框 -->
+<view class='choose-dialog history-strokes-dialog' wx:if="{{showHistoryStroke}}">
+  <view style='position:relative;'>
+  <text>练习记录</text>
+    <picker-view  bindchange="onHistoryStrokesChange" style='margin-top:30rpx;height:540rpx; width:200rpx;' value="{{[0]}}">
+      <picker-view-column>
+        <view wx:key="chars" wx:for="{{historyStrokeText}}" style="text-align:center; line-height: 50px">{{item}}</view>
+      </picker-view-column>
+    </picker-view>
+    <canvas canvas-id="strokeCanvas" class='canvas_bg' style='border-radius:30rpx;width:400rpx;height:400rpx;position:absolute;right:40rpx;top:130rpx;'></canvas>
+    <view style='position:absolute;bottom:20rpx;right:140rpx;color:#333;display:flex;'>
+    <image style='width:100rpx;height:100rpx;' src='{{historyStrokeScoreImage}}'></image>
+    <text style='font-size:30rpx;margin-top:-7rpx;padding-left:10rpx;'>{{historyStrokeScoreText}}</text>
+    </view>
+  </view>
+  <button class='btn-big' style='margin-left:35rpx;' bindtap='hideHistoryStroke'>关闭</button>
+</view>
+
+<view class='control'>
+<view bindtap='showMenu' class='icon-btn btn-choose'><image src='/static/icons/choose.jpg'></image><text hidden='true'>选字</text><view class='split'></view></view>
+<view bindtap='showHistory' class='icon-btn'><image src='/static/icons/foot.jpg'></image><view class='split'></view></view>
+<view bindtap='rewrite' class='icon-btn btn-rewrite'><image src='/static/icons/eraser.jpg'></image><text style='animation: {{rewriteTipAnimation}}' hidden='{{rewriteTipHidden}}'>橡皮擦</text><view class='split'></view></view>
+<view bindtap='strokeAnim' class='icon-btn btn-brush'><image src='/static/icons/brush.jpg'></image><view class='split'></view>
+<view class='bursh_tip' style='background:{{brushDotBackground}};' hidden='{{brushDotHidden}}'></view></view>
+<view bindtap='queryDict' class='icon-btn btn-mean'><image src='/static/icons/mean.jpg'></image></view>
+</view>
+
+<cover-view class='choose-dlg' wx:if="{{showMenu}}">
+  <cover-view class="myButton" bindtap='showChoose'>
+    <cover-image src='/static/btn_bg.jpg'></cover-image>
+    <cover-view>选  择</cover-view>
+  </cover-view>
+  <cover-view class="myButton" bindtap='showInput'>
+    <cover-image src='/static/btn_bg.jpg'></cover-image>
+    <cover-view>输  入</cover-view>
+  </cover-view>
+  <cover-view bindtap='previousCharacter' class='myButton'>
+    <cover-image src='/static/btn_bg.jpg'></cover-image>
+    <cover-view>回  退</cover-view>
+  </cover-view>
+  <cover-view hidden='' class='myButton'>
+    <cover-image src='/static/btn_bg.jpg'></cover-image>
+    <cover-view bindtap='inputFeedback'>反  馈</cover-view>
+  </cover-view>
+  <cover-view bindtap='' class='myButton'>
+    <cover-image src='/static/btn_bg.jpg'></cover-image>
+    <cover-view bindtap='showShare'>分  享</cover-view>
+  </cover-view>
+  <cover-view bindtap='hideMenu' class='myButton'>
+    <cover-image src='/static/btn_bg.jpg'></cover-image>
+    <cover-view>关  闭</cover-view>
+  </cover-view>
+</cover-view>
+
+<view class='top-border'>
+  <view class='top-border-0'>
+    <view class='top-border-1'>
+    <text style='font-family: "{{fontName}}";' class='back-ch canvas_bg'>{{character}}</text>
+    <canvas hidden='{{showCanvasPlace}}' class='canvas' bindtouchstart="onTouchstart" bindtouchmove="onTouchmove" bindtouchcancel="onTouchcancel" bindtouchend="onTouchend" id="firstCanvas" canvas-id="firstCanvas"></canvas>
+    </view>
+    <image hidden='{{!showCanvasPlace}}' class='canvas canvas_bg' style='position:absolute; left:66rpx;top:212rpx;'></image>
+  </view>
+</view>
+<view class='ct-border'>
+  <view class='ct-border-0'>
+    <view class='ct-border-1'>
+      <scroll-view scroll-with-animation='true' scroll-into-view="{{scrollId}}" scroll-x class='content-panel'>
+    <text wx:for="{{words}}" wx:key="key" wx:for-item="word" id="{{word.id}}" class='{{word.style}}'>{{word.text}}</text>
+  </scroll-view>
+    </view>
+  </view>
+</view>
+
+<!--alert弹窗-->
+<cover-view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></cover-view>
+<cover-view class="modal-dialog" wx:if="{{showModal}}">
+  <cover-image style='position:absolute;' src='/static/alert_dlg_bg.png'></cover-image>
+  <cover-view class="modal-dialog-box">
+    <cover-view class='modal-text'>{{modalText}}</cover-view>
+    <cover-view class='dlg_cover_btn_cotent'>
+      <cover-image src='/static/btn_ok.png' class='modal-confirm' bindtap="onConfirm" data-status="confirm"></cover-image>
+    </cover-view>
+  </cover-view>
+</cover-view>
+
+<!--input弹窗-->
+<view class="modal-mask" bindtap="hideInput" catchtouchmove="preventTouchMove" wx:if="{{showInput}}"></view>
+<view class="modal-dialog" wx:if="{{showInput}}">
+  <image style='position:absolute;left:0px;width:100%;height:100%;' src='/static/alert_dlg_bg.png'></image>
+  <view class="modal-dialog-box">
+    <input value='{{inputContent}}' name="content" focus='{{showInput}}' bindinput='onInputChange' placeholder='{{inputPlaceholder}}'></input>
+    <view class='dlg_cover_btn_cotent modal-input-btn-content'>
+      <image bindtap="confirmInput" src='/static/btn_ok.png' class='modal-confirm'></image>
+    </view>
+  </view>
+</view>
+
+<cover-view style='animation:{{scoreToastAnimation}}' hidden='{{hideScoreToast}}' class='score-toast'>
+<cover-image src='{{scoreToastImage}}'></cover-image>
+<cover-view>{{scoreToastText}}</cover-view>
+</cover-view>
+
+<!-- <view class='footer'>如有疑问,请发邮件至planet2@qq.com</view> -->

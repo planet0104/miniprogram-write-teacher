@@ -1,0 +1,13 @@
+[package]
+name = "gendict"
+version = "0.1.0"
+authors = ["Jia Ye <planet0104@gmail.com>"]
+# edition = "2018"
+
+[dependencies]
+serde_json = "*"
+bincode = "*"
+bzip2 = "0.3.2"
+base64 = "0.10.0"
+serde_derive = "*"
+serde = "*"
