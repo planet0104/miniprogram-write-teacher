@@ -2,7 +2,7 @@
 
 小程序二维码：
 
-<img src="https://github.com/planet0104/write-teacher/blob/master/code0.jpg" /><img src="https://github.com/planet0104/write-teacher/blob/master/code1.jpg" />
+<img src="https://github.com/planet0104/miniprogram-write-teacher/blob/master/code0.jpg" /><img src="https://github.com/planet0104/miniprogram-write-teacher/blob/master/code1.jpg" />
 
 代码目录结构说明：
 
@@ -18,7 +18,7 @@
 
 
 小程序运行截图：
-<img src="https://github.com/planet0104/write-teacher/blob/master/screenrecorder.gif" />
+<img src="https://github.com/planet0104/miniprogram-write-teacher/blob/master/screenrecorder.gif" />
 
-<img src="https://github.com/planet0104/write-teacher/blob/master/screenshot0.png" /><img src="https://github.com/planet0104/write-teacher/blob/master/screenshot1.png" /><img src="https://github.com/planet0104/write-teacher/blob/master/screenshot2.png" /><img src="https://github.com/planet0104/write-teacher/blob/master/screenshot3.png" />
+<img src="https://github.com/planet0104/miniprogram-write-teacher/blob/master/screenshot0.png" /><img src="https://github.com/planet0104/miniprogram-write-teacher/blob/master/screenshot1.png" /><img src="https://github.com/planet0104/miniprogram-write-teacher/blob/master/screenshot2.png" /><img src="https://github.com/planet0104/miniprogram-write-teacher/blob/master/screenshot3.png" />
 
